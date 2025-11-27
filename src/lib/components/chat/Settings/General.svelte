@@ -14,7 +14,7 @@
 	export let getModels: Function;
 
 	// General
-	let themes = ['dark', 'light', 'oled-dark', 'tifinya'];
+	let themes = ['dark', 'light', 'oled-dark', 'tifinya-light', 'tifinya-dark'];
 	let selectedTheme = 'system';
 
 	let languages: Awaited<ReturnType<typeof getLanguages>> = [];
@@ -120,13 +120,13 @@
 	});
 
 	const applyTheme = (_theme: string) => {
-		let themeToApply = _theme === 'oled-dark' ? 'dark' : _theme === 'her' ? 'light' : _theme === 'tifinya' ? 'dark' : _theme;
+		let themeToApply = _theme === 'oled-dark' ? 'dark' : _theme === 'her' ? 'light' : _theme === 'tifinya-dark' ? 'dark' : _theme === 'tifinya-light' ? 'light' : _theme;
 
 		if (_theme === 'system') {
 			themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		}
 
-		if (themeToApply === 'dark' && !_theme.includes('oled') && _theme !== 'tifinya') {
+		if (themeToApply === 'dark' && !_theme.includes('oled') && !_theme.includes('tifinya')) {
 			document.documentElement.style.setProperty('--color-gray-800', '#333');
 			document.documentElement.style.setProperty('--color-gray-850', '#262626');
 			document.documentElement.style.setProperty('--color-gray-900', '#171717');
@@ -161,11 +161,13 @@
 						? '#171717'
 						: _theme === 'oled-dark'
 							? '#000000'
-							: _theme === 'tifinya'
-								? '#020a0d'
-								: _theme === 'her'
-									? '#983724'
-									: '#ffffff'
+							: _theme === 'tifinya-dark'
+								? '#0f172a'
+								: _theme === 'tifinya-light'
+									? '#ffffff'
+									: _theme === 'her'
+										? '#983724'
+										: '#ffffff'
 				);
 			}
 		}
@@ -182,12 +184,20 @@
 			document.documentElement.classList.add('dark');
 		}
 
-		if (_theme === 'tifinya') {
-			document.documentElement.style.setProperty('--color-gray-800', '#0a1a1f');
-			document.documentElement.style.setProperty('--color-gray-850', '#050f14');
-			document.documentElement.style.setProperty('--color-gray-900', '#020a0d');
-			document.documentElement.style.setProperty('--color-gray-950', '#000507');
+		if (_theme === 'tifinya-dark') {
+			document.documentElement.style.setProperty('--color-gray-800', '#1e293b');
+			document.documentElement.style.setProperty('--color-gray-850', '#1e293b');
+			document.documentElement.style.setProperty('--color-gray-900', '#0f172a');
+			document.documentElement.style.setProperty('--color-gray-950', '#0f172a');
 			document.documentElement.classList.add('dark');
+			document.documentElement.classList.add('tifinya');
+		}
+
+		if (_theme === 'tifinya-light') {
+			document.documentElement.style.setProperty('--color-gray-50', '#f9fafb');
+			document.documentElement.style.setProperty('--color-gray-100', '#f3f4f6');
+			document.documentElement.classList.remove('dark');
+			document.documentElement.classList.add('light');
 			document.documentElement.classList.add('tifinya');
 		}
 
@@ -221,7 +231,8 @@
 					<option value="dark">🌑 {$i18n.t('Dark')}</option>
 					<option value="oled-dark">🌃 {$i18n.t('OLED Dark')}</option>
 					<option value="light">☀️ {$i18n.t('Light')}</option>
-					<option value="tifinya">💎 TIFINYA</option>
+					<option value="tifinya-light">💎 TIFINYA Light</option>
+					<option value="tifinya-dark">🔷 TIFINYA Dark</option>
 					<option value="her">🌷 Her</option>
 						<!-- <option value="rose-pine dark">🪻 {$i18n.t('Rosé Pine')}</option>
 						<option value="rose-pine-dawn light">🌷 {$i18n.t('Rosé Pine Dawn')}</option> -->

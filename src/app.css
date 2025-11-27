@@ -35,7 +35,7 @@
 	--app-text-scale: 1;
 }
 
-/* TIFINYA Theme - Neurovantis Style */
+/* TIFINYA Theme - Professional Neurovantis Style */
 .tifinya {
 	--tifinya-primary: #2563eb;
 	--tifinya-primary-dark: #1d4ed8;
@@ -46,32 +46,53 @@
 	--tifinya-border: #e5e7eb;
 }
 
-/* TIFINYA buttons */
+/* TIFINYA Professional Buttons */
 .tifinya button:not(.bg-transparent):not([class*='bg-']),
 .tifinya .btn-primary {
-	background: linear-gradient(90deg, var(--tifinya-primary) 0%, var(--tifinya-secondary) 100%);
+	background: var(--tifinya-primary);
 	border: none;
-	box-shadow: 0 14px 36px -14px rgba(37, 99, 235, 0.7);
-	transition: all 0.3s ease;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 	color: white;
-	font-weight: 600;
+	font-weight: 500;
+	border-radius: 0.75rem;
+	position: relative;
+	overflow: hidden;
+}
+
+.tifinya button:not(.bg-transparent):not([class*='bg-'])::before,
+.tifinya .btn-primary::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
+	opacity: 0;
+	transition: opacity 0.2s ease;
 }
 
 .tifinya button:not(.bg-transparent):not([class*='bg-']):hover,
 .tifinya .btn-primary:hover {
-	background: linear-gradient(90deg, var(--tifinya-primary) 60%, var(--tifinya-secondary) 100%);
-	box-shadow: 0 22px 48px -18px rgba(37, 99, 235, 0.85);
-	transform: translateY(-2px) scale(1.02);
+	background: var(--tifinya-primary-dark);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+	transform: translateY(-1px);
+}
+
+.tifinya button:not(.bg-transparent):not([class*='bg-']):hover::before,
+.tifinya .btn-primary:hover::before {
+	opacity: 1;
 }
 
 .tifinya a:not([class*='text-']) {
 	color: var(--tifinya-primary);
-	transition: all 0.25s ease;
+	transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	text-decoration: none;
 }
 
 .tifinya a:hover {
-	color: var(--tifinya-secondary);
-	opacity: 0.9;
+	color: var(--tifinya-primary-dark);
 }
 
 /* TIFINYA input and textarea styling */

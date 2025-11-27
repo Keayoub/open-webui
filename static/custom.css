@@ -41,20 +41,37 @@
 /* Small helpers to make tailwind use css variables where needed */
 html { background-color: rgb(var(--bg)); color: rgb(var(--text)); }
 
-/* TIFINYA Theme - Neurovantis Style with Blue/Green */
+/* TIFINYA Light Theme - Professional Neurovantis Style */
 .tifinya {
   --bg: 255 255 255; /* Pure white background */
-  --text: 31 41 55; /* Dark gray text */
-  --muted: 107 114 128; /* Muted gray */
+  --text: 31 41 55; /* Dark gray text (#1f2937) */
+  --muted: 107 114 128; /* Muted gray (#6b7280) */
   --primary: 37 99 235; /* Neurovantis blue (#2563eb) */
   --primary-600: 29 78 216; /* Darker blue (#1d4ed8) */
   --accent: 16 185 129; /* Neurovantis green (#10b981) */
-  --accent-600: 5 150 105; /* Darker green */
+  --accent-600: 5 150 105; /* Darker green (#059669) */
   --secondary: 245 158 11; /* Accent orange (#f59e0b) */
-  --card: 249 250 251; /* Very light gray for cards */
-  --border: 229 231 235; /* Light border */
-  --radius: 0.5rem;
-  --shadow: 0 4px 6px rgba(37, 99, 235, 0.1); /* Subtle blue shadow */
+  --card: 249 250 251; /* Very light gray for cards (#f9fafb) */
+  --border: 229 231 235; /* Light border (#e5e7eb) */
+  --radius: 0.75rem;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* TIFINYA Dark Theme - Professional Dark Mode */
+.tifinya.dark,
+.dark .tifinya {
+  --bg: 15 23 42; /* Dark navy (#0f172a) */
+  --text: 248 250 252; /* Light text (#f8fafc) */
+  --muted: 148 163 184; /* Muted light gray (#94a3b8) */
+  --primary: 96 165 250; /* Lighter blue for dark (#60a5fa) */
+  --primary-600: 59 130 246; /* Mid blue (#3b82f6) */
+  --accent: 52 211 153; /* Lighter green for dark (#34d399) */
+  --accent-600: 16 185 129; /* Standard green (#10b981) */
+  --secondary: 251 191 36; /* Lighter orange for dark (#fbbf24) */
+  --card: 30 41 59; /* Lighter dark for cards (#1e293b) */
+  --border: 51 65 85; /* Dark border (#334155) */
+  --radius: 0.75rem;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* TIFINYA specific overrides for enhanced visual effects */
@@ -66,48 +83,111 @@ html { background-color: rgb(var(--bg)); color: rgb(var(--text)); }
   color: rgb(var(--text));
 }
 
+/* Professional Input Styling */
+.tifinya input,
+.tifinya textarea,
+.tifinya select {
+  background-color: rgb(var(--bg));
+  border: 1px solid rgb(var(--border));
+  border-radius: calc(var(--radius) - 0.125rem);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .tifinya input:focus,
 .tifinya textarea:focus,
 .tifinya select:focus {
   border-color: rgb(var(--primary));
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.tifinya button:not([class*='bg-transparent']) {
-  background: linear-gradient(90deg, rgb(var(--primary)) 0%, rgb(var(--accent)) 100%);
+.dark .tifinya input:focus,
+.dark .tifinya textarea:focus,
+.dark .tifinya select:focus {
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+/* Professional Button Styling */
+.tifinya button:not([class*='bg-transparent']):not([class*='bg-']) {
+  background: rgb(var(--primary));
   border: none;
   color: white;
-  box-shadow: 0 14px 36px -14px rgba(37, 99, 235, 0.7);
-  transition: all 0.3s ease;
-  font-weight: 600;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  border-radius: var(--radius);
+  position: relative;
+  overflow: hidden;
 }
 
-.tifinya button:hover {
-  background: linear-gradient(90deg, rgb(var(--primary)) 60%, rgb(var(--accent)) 100%);
-  box-shadow: 0 22px 48px -18px rgba(37, 99, 235, 0.85);
-  transform: translateY(-2px) scale(1.02);
+.tifinya button:not([class*='bg-transparent']):not([class*='bg-'])::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-.tifinya a {
+.tifinya button:not([class*='bg-transparent']):not([class*='bg-']):hover {
+  background: rgb(var(--primary-600));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.tifinya button:not([class*='bg-transparent']):not([class*='bg-']):hover::before {
+  opacity: 1;
+}
+
+.tifinya button:not([class*='bg-transparent']):not([class*='bg-']):active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Professional Link Styling */
+.tifinya a:not([class*='bg-']) {
   color: rgb(var(--primary));
-  transition: all 0.25s ease;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
 }
 
-.tifinya a:hover {
-  color: rgb(var(--accent));
-  opacity: 0.9;
+.tifinya a:not([class*='bg-']):hover {
+  color: rgb(var(--primary-600));
 }
 
-/* TIFINYA scrollbar styling */
+.dark .tifinya a:not([class*='bg-']):hover {
+  color: rgb(var(--accent));
+}
+
+/* Professional Scrollbar */
+.tifinya ::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.tifinya ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .tifinya ::-webkit-scrollbar-thumb {
-  background-color: rgba(37, 99, 235, 0.3);
+  background-color: rgba(107, 114, 128, 0.3);
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.2s ease;
 }
 
 .tifinya ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(37, 99, 235, 0.5);
+}
+
+.dark .tifinya ::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.3);
+}
+
+.dark .tifinya ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(96, 165, 250, 0.5);
 }
