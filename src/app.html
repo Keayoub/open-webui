@@ -66,6 +66,11 @@
 				} else if (localStorage.theme === 'her') {
 					document.documentElement.classList.add('her');
 					metaThemeColorTag.setAttribute('content', '#983724');
+				} else if (localStorage.theme === 'tifinya') {
+					document.documentElement.classList.remove('dark');
+					document.documentElement.classList.add('light');
+					document.documentElement.classList.add('tifinya');
+					metaThemeColorTag.setAttribute('content', '#ffffff');
 				} else {
 					document.documentElement.classList.add('dark');
 					metaThemeColorTag.setAttribute('content', '#171717');

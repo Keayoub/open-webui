@@ -35,6 +35,65 @@
 	--app-text-scale: 1;
 }
 
+/* TIFINYA Theme - Neurovantis Style */
+.tifinya {
+	--tifinya-primary: #2563eb;
+	--tifinya-primary-dark: #1d4ed8;
+	--tifinya-secondary: #10b981;
+	--tifinya-accent: #f59e0b;
+	--tifinya-bg: #ffffff;
+	--tifinya-text: #1f2937;
+	--tifinya-border: #e5e7eb;
+}
+
+/* TIFINYA buttons */
+.tifinya button:not(.bg-transparent):not([class*='bg-']),
+.tifinya .btn-primary {
+	background: linear-gradient(90deg, var(--tifinya-primary) 0%, var(--tifinya-secondary) 100%);
+	border: none;
+	box-shadow: 0 14px 36px -14px rgba(37, 99, 235, 0.7);
+	transition: all 0.3s ease;
+	color: white;
+	font-weight: 600;
+}
+
+.tifinya button:not(.bg-transparent):not([class*='bg-']):hover,
+.tifinya .btn-primary:hover {
+	background: linear-gradient(90deg, var(--tifinya-primary) 60%, var(--tifinya-secondary) 100%);
+	box-shadow: 0 22px 48px -18px rgba(37, 99, 235, 0.85);
+	transform: translateY(-2px) scale(1.02);
+}
+
+.tifinya a:not([class*='text-']) {
+	color: var(--tifinya-primary);
+	transition: all 0.25s ease;
+}
+
+.tifinya a:hover {
+	color: var(--tifinya-secondary);
+	opacity: 0.9;
+}
+
+/* TIFINYA input and textarea styling */
+.tifinya input:focus,
+.tifinya textarea:focus,
+.tifinya select:focus {
+	border-color: var(--tifinya-primary);
+	box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+	outline: none;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* TIFINYA scrollbar */
+.tifinya ::-webkit-scrollbar-thumb {
+	background-color: rgba(37, 99, 235, 0.3);
+	border-radius: 999px;
+}
+
+.tifinya ::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(37, 99, 235, 0.5);
+}
+
 html {
 	word-break: break-word;
 	/* font-size scales the entire document via the same UI control */

@@ -1,25 +1,50 @@
 services:
+  # ollama:
+  #   volumes:
+  #     - ollama:/root/.ollama
+  #   container_name: ollama
+  #   pull_policy: always
+  #   tty: true
+  #   restart: unless-stopped
+  #   image: ollama/ollama:${OLLAMA_DOCKER_TAG-latest}
+
+  
+  # Ollama - Local LLM serving engine (CPU-only mode)
+  # Note: CPU inference is slower than GPU, but Ollama is optimized for it
   ollama:
-    volumes:
-      - ollama:/root/.ollama
+    image: ollama/ollama:latest
     container_name: ollama
-    pull_policy: always
-    tty: true
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    volumes:
+      - ollama-models:/root/.ollama
+    networks:
+      - local
     restart: unless-stopped
-    image: ollama/ollama:${OLLAMA_DOCKER_TAG-latest}
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
   open-webui:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/open-webui/open-webui:${WEBUI_DOCKER_TAG-main}
+    image: ${OPENWEBUI_IMAGE}:${WEBUI_DOCKER_TAG-main}
     container_name: open-webui
+    networks:
+      - local
     volumes:
-      - open-webui:/app/backend/data
+      - openwebui-data:/app/backend/data
+      - ./static:/app/build/static:ro
     depends_on:
       - ollama
     ports:
-      - ${OPEN_WEBUI_PORT-3000}:8080
+      - ${OPEN_WEBUI_PORT-8080}:8080
     environment:
       - 'OLLAMA_BASE_URL=http://ollama:11434'
       - 'WEBUI_SECRET_KEY='
@@ -28,5 +53,14 @@ services:
     restart: unless-stopped
 
 volumes:
-  ollama: {}
-  open-webui: {}
+  ollama-models:
+    name: ollama-models
+    external: true
+  openwebui-data:
+    name: openwebui-data
+    external: true
+
+networks:
+  local:
+    name: local
+    driver: bridge

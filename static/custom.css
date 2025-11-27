@@ -1,0 +1,113 @@
+:root{
+  /* Morocco-inspired theme - Light (warm sand, terracotta, gold) */
+  --bg: 250 247 242;
+  --text: 44 30 22;
+  --muted: 120 88 72;
+  --primary: 193 39 45; /* Moroccan red */
+  --primary-600: 156 31 36;
+  --accent: 218 165 32; /* Gold */
+  --accent-600: 184 134 11;
+  --secondary: 0 106 78; /* Moroccan green */
+  --card: 255 251 247;
+  --border: 220 204 188;
+  --radius: 0.5rem;
+  --shadow: 0 2px 8px rgba(193,39,45,0.08);
+}
+
+/* Morocco theme - Dark (deep terracotta, night sky) */
+.theme-dark{
+  --bg: 28 20 16;
+  --text: 250 244 237;
+  --muted: 180 160 145;
+  --primary: 220 70 75; /* Lighter Moroccan red */
+  --primary-600: 193 39 45;
+  --accent: 238 192 68; /* Brighter gold */
+  --accent-600: 218 165 32;
+  --secondary: 46 139 87; /* Lighter green */
+  --card: 40 30 24;
+  --border: 80 60 48;
+  --radius: 0.5rem;
+  --shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* Utility classes to reference tokens - minimal and optional */
+.ui-bg { background-color: rgb(var(--bg)); }
+.ui-text { color: rgb(var(--text)); }
+.ui-muted { color: rgb(var(--muted)); }
+.ui-card { background-color: rgb(var(--card)); border: 1px solid rgb(var(--border)); border-radius: var(--radius); box-shadow: var(--shadow); }
+.ui-btn { background-color: rgb(var(--primary)); color: white; padding: .5rem 1rem; border-radius: .375rem; }
+.ui-btn:hover { background-color: rgb(var(--primary-600)); }
+
+/* Small helpers to make tailwind use css variables where needed */
+html { background-color: rgb(var(--bg)); color: rgb(var(--text)); }
+
+/* TIFINYA Theme - Neurovantis Style with Blue/Green */
+.tifinya {
+  --bg: 255 255 255; /* Pure white background */
+  --text: 31 41 55; /* Dark gray text */
+  --muted: 107 114 128; /* Muted gray */
+  --primary: 37 99 235; /* Neurovantis blue (#2563eb) */
+  --primary-600: 29 78 216; /* Darker blue (#1d4ed8) */
+  --accent: 16 185 129; /* Neurovantis green (#10b981) */
+  --accent-600: 5 150 105; /* Darker green */
+  --secondary: 245 158 11; /* Accent orange (#f59e0b) */
+  --card: 249 250 251; /* Very light gray for cards */
+  --border: 229 231 235; /* Light border */
+  --radius: 0.5rem;
+  --shadow: 0 4px 6px rgba(37, 99, 235, 0.1); /* Subtle blue shadow */
+}
+
+/* TIFINYA specific overrides for enhanced visual effects */
+.tifinya input,
+.tifinya textarea,
+.tifinya select {
+  background-color: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+  color: rgb(var(--text));
+}
+
+.tifinya input:focus,
+.tifinya textarea:focus,
+.tifinya select:focus {
+  border-color: rgb(var(--primary));
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tifinya button:not([class*='bg-transparent']) {
+  background: linear-gradient(90deg, rgb(var(--primary)) 0%, rgb(var(--accent)) 100%);
+  border: none;
+  color: white;
+  box-shadow: 0 14px 36px -14px rgba(37, 99, 235, 0.7);
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.tifinya button:hover {
+  background: linear-gradient(90deg, rgb(var(--primary)) 60%, rgb(var(--accent)) 100%);
+  box-shadow: 0 22px 48px -18px rgba(37, 99, 235, 0.85);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.tifinya a {
+  color: rgb(var(--primary));
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.tifinya a:hover {
+  color: rgb(var(--accent));
+  opacity: 0.9;
+}
+
+/* TIFINYA scrollbar styling */
+.tifinya ::-webkit-scrollbar-thumb {
+  background-color: rgba(37, 99, 235, 0.3);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.tifinya ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(37, 99, 235, 0.5);
+}

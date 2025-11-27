@@ -21,6 +21,18 @@ export default {
 					850: 'var(--color-gray-850, #262626)',
 					900: 'var(--color-gray-900, #171717)',
 					950: 'var(--color-gray-950, #0d0d0d)'
+				},
+				tifinya: {
+					50: '#e6ffff',
+					100: '#b3ffff',
+					200: '#80ffff',
+					300: '#4dffff',
+					400: '#1affff',
+					500: '#00e6e6',
+					600: '#00b3b3',
+					700: '#008080',
+					800: '#004d4d',
+					900: '#001a1a'
 				}
 			},
 			typography: {

@@ -14,7 +14,7 @@
 	export let getModels: Function;
 
 	// General
-	let themes = ['dark', 'light', 'oled-dark'];
+	let themes = ['dark', 'light', 'oled-dark', 'tifinya'];
 	let selectedTheme = 'system';
 
 	let languages: Awaited<ReturnType<typeof getLanguages>> = [];
@@ -120,13 +120,13 @@
 	});
 
 	const applyTheme = (_theme: string) => {
-		let themeToApply = _theme === 'oled-dark' ? 'dark' : _theme === 'her' ? 'light' : _theme;
+		let themeToApply = _theme === 'oled-dark' ? 'dark' : _theme === 'her' ? 'light' : _theme === 'tifinya' ? 'dark' : _theme;
 
 		if (_theme === 'system') {
 			themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		}
 
-		if (themeToApply === 'dark' && !_theme.includes('oled')) {
+		if (themeToApply === 'dark' && !_theme.includes('oled') && _theme !== 'tifinya') {
 			document.documentElement.style.setProperty('--color-gray-800', '#333');
 			document.documentElement.style.setProperty('--color-gray-850', '#262626');
 			document.documentElement.style.setProperty('--color-gray-900', '#171717');
@@ -161,9 +161,11 @@
 						? '#171717'
 						: _theme === 'oled-dark'
 							? '#000000'
-							: _theme === 'her'
-								? '#983724'
-								: '#ffffff'
+							: _theme === 'tifinya'
+								? '#020a0d'
+								: _theme === 'her'
+									? '#983724'
+									: '#ffffff'
 				);
 			}
 		}
@@ -178,6 +180,15 @@
 			document.documentElement.style.setProperty('--color-gray-900', '#000000');
 			document.documentElement.style.setProperty('--color-gray-950', '#000000');
 			document.documentElement.classList.add('dark');
+		}
+
+		if (_theme === 'tifinya') {
+			document.documentElement.style.setProperty('--color-gray-800', '#0a1a1f');
+			document.documentElement.style.setProperty('--color-gray-850', '#050f14');
+			document.documentElement.style.setProperty('--color-gray-900', '#020a0d');
+			document.documentElement.style.setProperty('--color-gray-950', '#000507');
+			document.documentElement.classList.add('dark');
+			document.documentElement.classList.add('tifinya');
 		}
 
 		console.log(_theme);
@@ -206,11 +217,12 @@
 						placeholder={$i18n.t('Select a theme')}
 						on:change={() => themeChangeHandler(selectedTheme)}
 					>
-						<option value="system">⚙️ {$i18n.t('System')}</option>
-						<option value="dark">🌑 {$i18n.t('Dark')}</option>
-						<option value="oled-dark">🌃 {$i18n.t('OLED Dark')}</option>
-						<option value="light">☀️ {$i18n.t('Light')}</option>
-						<option value="her">🌷 Her</option>
+					<option value="system">⚙️ {$i18n.t('System')}</option>
+					<option value="dark">🌑 {$i18n.t('Dark')}</option>
+					<option value="oled-dark">🌃 {$i18n.t('OLED Dark')}</option>
+					<option value="light">☀️ {$i18n.t('Light')}</option>
+					<option value="tifinya">💎 TIFINYA</option>
+					<option value="her">🌷 Her</option>
 						<!-- <option value="rose-pine dark">🪻 {$i18n.t('Rosé Pine')}</option>
 						<option value="rose-pine-dawn light">🌷 {$i18n.t('Rosé Pine Dawn')}</option> -->
 					</select>

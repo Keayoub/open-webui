@@ -41,6 +41,11 @@
 	import '../app.css';
 	import 'tippy.js/dist/tippy.css';
 
+// Custom theme variables (safe to override)
+import '/static/custom.css';
+
+import ThemeProvider from '$lib/components/ThemeProvider.svelte';
+
 	import { executeToolServer, getBackendConfig, getVersion } from '$lib/apis';
 	import { getSessionUser, userSignOut } from '$lib/apis/auths';
 	import { getAllTags, getChatList } from '$lib/apis/chats';
@@ -768,11 +773,13 @@
 	</div>
 {/if}
 
+
 {#if loaded}
+	<ThemeProvider>
 	{#if $isApp}
 		<div class="flex flex-row h-screen">
 			<AppSidebar />
-
+			
 			<div class="w-full flex-1 max-w-[calc(100%-4.5rem)]">
 				<slot />
 			</div>
@@ -780,6 +787,7 @@
 	{:else}
 		<slot />
 	{/if}
+	</ThemeProvider>
 {/if}
 
 <Toaster

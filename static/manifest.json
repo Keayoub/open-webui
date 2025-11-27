@@ -1,1 +1,28 @@
-{}
+{
+	"name": "TIFINYA AI Platform",
+	"short_name": "TIFINYA",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#020a0d",
+	"theme_color": "#00e6e6",
+	"description": "TIFINYA AI Platform - Powered by Open WebUI",
+	"icons": [
+		{
+			"src": "/static/favicon.png",
+			"sizes": "any",
+			"type": "image/png"
+		},
+		{
+			"src": "/static/favicon-96x96.png",
+			"sizes": "96x96",
+			"type": "image/png"
+		},
+		{
+			"src": "/static/apple-touch-icon.png",
+			"sizes": "180x180",
+			"type": "image/png"
+		}
+	],
+	"categories": ["productivity", "business"],
+	"orientation": "portrait-primary"
+}
