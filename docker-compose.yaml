@@ -30,12 +30,12 @@ services:
       retries: 3
       start_period: 10s
 
-  open-webui:
+  openwebui:
     build:
       context: .
       dockerfile: Dockerfile
     image: ${OPENWEBUI_IMAGE}:${WEBUI_DOCKER_TAG-main}
-    container_name: open-webui
+    container_name: openwebui
     networks:
       - local
     volumes:
