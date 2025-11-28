@@ -1,11 +1,11 @@
 {
-	"name": "TIFINYA AI Platform",
-	"short_name": "TIFINYA",
+	"name": "tifinia AI Platform",
+	"short_name": "tifinia",
 	"start_url": "/",
 	"display": "standalone",
 	"background_color": "#020a0d",
 	"theme_color": "#00e6e6",
-	"description": "TIFINYA AI Platform - Powered by Open WebUI",
+	"description": "tifinia AI Platform - Powered by Open WebUI",
 	"icons": [
 		{
 			"src": "/static/favicon.png",

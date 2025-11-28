@@ -22,7 +22,7 @@ export default {
 					900: 'var(--color-gray-900, #171717)',
 					950: 'var(--color-gray-950, #0d0d0d)'
 				},
-				tifinya: {
+				tifinia: {
 					50: '#e6ffff',
 					100: '#b3ffff',
 					200: '#80ffff',

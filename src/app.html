@@ -66,10 +66,16 @@
 				} else if (localStorage.theme === 'her') {
 					document.documentElement.classList.add('her');
 					metaThemeColorTag.setAttribute('content', '#983724');
-				} else if (localStorage.theme === 'tifinya') {
+				} else if (localStorage.theme === 'tifinia' || localStorage.theme === 'tifinia') {
+					// Backward compatibility: migrate old stored key 'tifinia' to 'tifinia'
+					if (localStorage.theme === 'tifinia') {
+						try { localStorage.theme = 'tifinia'; } catch (e) {}
+					}
 					document.documentElement.classList.remove('dark');
 					document.documentElement.classList.add('light');
-					document.documentElement.classList.add('tifinya');
+					// Add both new and legacy classes during transition so existing CSS (.tifinia ...) still applies
+					document.documentElement.classList.add('tifinia');
+					document.documentElement.classList.add('tifinia');
 					metaThemeColorTag.setAttribute('content', '#ffffff');
 				} else {
 					document.documentElement.classList.add('dark');

@@ -1,9 +1,9 @@
 #!/usr/bin/env pwsh
-# TIFINYA WebUI - Rebuild Script
-# This script rebuilds the Open WebUI container with TIFINYA customizations
+# tifinia WebUI - Rebuild Script
+# This script rebuilds the Open WebUI container with tifinia customizations
 
 Write-Host "=================================================" -ForegroundColor Cyan
-Write-Host "  TIFINYA WebUI - Rebuild Script" -ForegroundColor Cyan
+Write-Host "  tifinia WebUI - Rebuild Script" -ForegroundColor Cyan
 Write-Host "=================================================" -ForegroundColor Cyan
 Write-Host ""
 
