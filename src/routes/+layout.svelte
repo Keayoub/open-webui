@@ -28,7 +28,9 @@
 		isApp,
 		appInfo,
 		toolServers,
-		playingNotificationSound
+		playingNotificationSound,
+		channels,
+		channelId
 	} from '$lib/stores';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -60,6 +62,7 @@ import ThemeProvider from '$lib/components/ThemeProvider.svelte';
 	import Spinner from '$lib/components/common/Spinner.svelte';
 	import { getUserSettings } from '$lib/apis/users';
 	import dayjs from 'dayjs';
+	import { getChannels } from '$lib/apis/channels';
 
 	const unregisterServiceWorkers = async () => {
 		if ('serviceWorker' in navigator) {
@@ -91,6 +94,8 @@ import ThemeProvider from '$lib/components/ThemeProvider.svelte';
 	let tokenTimer = null;
 
 	let showRefresh = false;
+
+	let heartbeatInterval = null;
 
 	const BREAKPOINT = 768;
 
@@ -128,6 +133,14 @@ import ThemeProvider from '$lib/components/ThemeProvider.svelte';
 				}
 			}
 
+			// Send heartbeat every 30 seconds
+			heartbeatInterval = setInterval(() => {
+				if (_socket.connected) {
+					console.log('Sending heartbeat');
+					_socket.emit('heartbeat', {});
+				}
+			}, 30000);
+
 			if (deploymentId !== null) {
 				WEBUI_DEPLOYMENT_ID.set(deploymentId);
 			}
@@ -156,6 +169,12 @@ import ThemeProvider from '$lib/components/ThemeProvider.svelte';
 
 		_socket.on('disconnect', (reason, details) => {
 			console.log(`Socket ${_socket.id} disconnected due to ${reason}`);
+
+			if (heartbeatInterval) {
+				clearInterval(heartbeatInterval);
+				heartbeatInterval = null;
+			}
+
 			if (details) {
 				console.log('Additional details:', details);
 			}
@@ -466,7 +485,19 @@ import ThemeProvider from '$lib/components/ThemeProvider.svelte';
 	};
 
 	const channelEventHandler = async (event) => {
+		console.log('channelEventHandler', event);
 		if (event.data?.type === 'typing') {
+			return;
+		}
+
+		// handle channel created event
+		if (event.data?.type === 'channel:created') {
+			await channels.set(
+				(await getChannels(localStorage.token)).sort(
+					(a, b) =>
+						['', null, 'group', 'dm'].indexOf(a.type) - ['', null, 'group', 'dm'].indexOf(b.type)
+				)
+			);
 			return;
 		}
 
@@ -488,10 +519,39 @@ import ThemeProvider from '$lib/components/ThemeProvider.svelte';
 			const type = event?.data?.type ?? null;
 			const data = event?.data?.data ?? null;
 
+			if ($channels) {
+				if ($channels.find((ch) => ch.id === event.channel_id) && $channelId !== event.channel_id) {
+					channels.set(
+						$channels.map((ch) => {
+							if (ch.id === event.channel_id) {
+								if (type === 'message') {
+									return {
+										...ch,
+										unread_count: (ch.unread_count ?? 0) + 1,
+										last_message_at: event.created_at
+									};
+								}
+							}
+							return ch;
+						})
+					);
+				} else {
+					await channels.set(
+						(await getChannels(localStorage.token)).sort(
+							(a, b) =>
+								['', null, 'group', 'dm'].indexOf(a.type) -
+								['', null, 'group', 'dm'].indexOf(b.type)
+						)
+					);
+				}
+			}
+
 			if (type === 'message') {
+				const title = `${data?.user?.name}${event?.channel?.type !== 'dm' ? ` (#${event?.channel?.name})` : ''}`;
+
 				if ($isLastActiveTab) {
 					if ($settings?.notificationEnabled ?? false) {
-						new Notification(`${data?.user?.name} (#${event?.channel?.name}) • Open WebUI`, {
+						new Notification(`${title} • Open WebUI`, {
 							body: data?.content,
 							icon: `${WEBUI_API_BASE_URL}/users/${data?.user?.id}/profile/image`
 						});
@@ -504,7 +564,7 @@ import ThemeProvider from '$lib/components/ThemeProvider.svelte';
 							goto(`/channels/${event.channel_id}`);
 						},
 						content: data?.content,
-						title: `#${event?.channel?.name}`
+						title: `${title}`
 					},
 					duration: 15000,
 					unstyled: true
